@@ -34,7 +34,6 @@ class PopularProductController extends GetxController {
     Response response = await popularProductRepo.getPopularProductRepo();
     if (response.statusCode == 200) {
       _isLoaded = true;
-      print("got Products");
       _popularProductList = [];
       _popularProductList.addAll(Product.fromJson(response.body).products);
       print(_popularProductList);
@@ -45,11 +44,9 @@ class PopularProductController extends GetxController {
   void setQuantity(bool isIncrement) {
     if (isIncrement) {
       _quantity = checkQuantity(_quantity + 1);
-      print("add 1 to quantity  the new quantity is " + quantity.toString());
     } else {
       _quantity = checkQuantity(_quantity - 1);
-      print("delete 1  from  quantity  the new quantity is " +
-          quantity.toString());
+
     }
     update();
   }
@@ -86,7 +83,6 @@ class PopularProductController extends GetxController {
     if (exist) {
       _inCartItem = _cart.getQuantity(product);
     }
-    print("Quantity in cart is " + _inCartItem.toString());
   }
 
   void addItem(ProductModel product) {
@@ -94,12 +90,7 @@ class PopularProductController extends GetxController {
     _cart.addItem(product, _quantity);
     _quantity = 0;
     _inCartItem = _cart.getQuantity(product);
-    _cart.items.forEach((key, value) {
-      print("the id is " +
-          value.id.toString() +
-          "the quantity is " +
-          value.quantity.toString());
-    });
+
 
     update();
   }
